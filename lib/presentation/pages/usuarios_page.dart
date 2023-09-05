@@ -1,6 +1,9 @@
-import 'package:chat_app/models/usuario.dart';
+import 'package:chat_app/domain/entities/usuario_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../providers/auth_provider.dart';
 
 class UsuariosPage extends StatefulWidget {
   const UsuariosPage({super.key});
@@ -14,20 +17,47 @@ class _UsuariosPageState extends State<UsuariosPage> {
       RefreshController(initialRefresh: false);
 
   final usuarios = [
-    Usuario(uid: "1", nombre: "Massiel", email: "test1@test.com", online: true),
-    Usuario(uid: "2", nombre: "Kanko", email: "test2@test.com", online: true),
-    Usuario(uid: "3", nombre: "Salomon", email: "test2@test.com", online: false)
+    UsuarioEntity(
+        uid: "1",
+        name: "Massiel",
+        email: "test1@test.com",
+        online: true,
+        token: ""),
+    UsuarioEntity(
+        uid: "2",
+        name: "Kanko",
+        email: "test2@test.com",
+        online: true,
+        token: ""),
+    UsuarioEntity(
+        uid: "3",
+        name: "Salomon",
+        email: "test2@test.com",
+        online: false,
+        token: "")
   ];
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    final usuario = auth.state.usuario ??
+        UsuarioEntity(
+          online: false,
+          name: "no-name",
+          email: "no-email",
+          uid: "no-uid",
+          token: "no-token",
+        );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Mi Nombre"),
+        title: Text(usuario.name),
         leading: IconButton(
           icon: const Icon(Icons.exit_to_app),
-          onPressed: () {},
+          onPressed: () {
+            auth.logout();
+            Navigator.pushReplacementNamed(context, "login");
+          },
         ),
         actions: [
           Container(
@@ -60,15 +90,15 @@ class _UsuariosPageState extends State<UsuariosPage> {
     );
   }
 
-  ListTile _usuarioListTile(Usuario usuario) {
+  ListTile _usuarioListTile(UsuarioEntity usuario) {
     return ListTile(
-      title: Text(usuario.nombre),
+      title: Text(usuario.name),
       subtitle: Text(
         usuario.email,
         style: const TextStyle(color: Colors.black54),
       ),
       leading: CircleAvatar(
-        child: Text(usuario.nombre.substring(0, 2)),
+        child: Text(usuario.name.substring(0, 2)),
       ),
       trailing: Container(
         width: 10,

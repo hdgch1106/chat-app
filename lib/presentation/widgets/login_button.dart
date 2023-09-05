@@ -18,7 +18,7 @@ class LoginButton extends StatelessWidget {
       child: FilledButton(
         style: FilledButton.styleFrom(
           backgroundColor: Colors.blue,
-          elevation: 2,
+          //elevation: 2,
         ),
         onPressed: onPressed,
         child: Text(text),
