@@ -2,6 +2,7 @@ import 'package:chat_app/config/routes/routes.dart';
 import 'package:chat_app/presentation/providers/auth_provider.dart';
 import 'package:chat_app/presentation/providers/login_form_provider.dart';
 import 'package:chat_app/presentation/providers/register_form_provider.dart';
+import 'package:chat_app/presentation/providers/socket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => LoginFormProvider()),
-        ChangeNotifierProvider(
-          create: (context) => RegisterFormProvider(),
-        ),
+        ChangeNotifierProvider(create: (context) => RegisterFormProvider()),
+        ChangeNotifierProvider(create: (context) => SocketProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

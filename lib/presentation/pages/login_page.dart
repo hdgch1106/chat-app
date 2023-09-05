@@ -1,6 +1,7 @@
 import 'package:chat_app/config/helpers/show_alert.dart';
 import 'package:chat_app/presentation/providers/auth_provider.dart';
 import 'package:chat_app/presentation/providers/login_form_provider.dart';
+import 'package:chat_app/presentation/providers/socket_provider.dart';
 import 'package:chat_app/presentation/widgets/custom_input.dart';
 import 'package:chat_app/presentation/widgets/login_button.dart';
 import 'package:chat_app/presentation/widgets/login_labels.dart';
@@ -61,6 +62,7 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
     final auth = Provider.of<AuthProvider>(context);
+    final socket = Provider.of<SocketProvider>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -90,9 +92,9 @@ class __FormState extends State<_Form> {
             onPressed: loginForm.state.isPosting == false
                 ? () async {
                     await loginForm.onFormSubmit(context);
-                    print(auth.state.authStatus.toString());
                     if (auth.state.authStatus == AuthStatus.authenticated) {
                       if (context.mounted) {
+                        socket.connect();
                         Navigator.pushReplacementNamed(context, "usuarios");
                       }
                     } else {

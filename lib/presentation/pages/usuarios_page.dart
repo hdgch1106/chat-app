@@ -1,4 +1,6 @@
+import 'package:chat_app/config/helpers/logout.dart';
 import 'package:chat_app/domain/entities/usuario_entity.dart';
+import 'package:chat_app/presentation/providers/socket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -40,6 +42,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
+    final socket = Provider.of<SocketProvider>(context);
     final usuario = auth.state.usuario ??
         UsuarioEntity(
           online: false,
@@ -52,19 +55,21 @@ class _UsuariosPageState extends State<UsuariosPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(usuario.name),
+        elevation: 3,
         leading: IconButton(
           icon: const Icon(Icons.exit_to_app),
           onPressed: () {
-            auth.logout();
-            Navigator.pushReplacementNamed(context, "login");
+            if (context.mounted) {
+              Logout().logoutUser(context);
+            }
           },
         ),
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: Icon(Icons.check_circle, color: Colors.blue[400]),
-            // Icon(Icons.offline_bolt, color: Colors.red)
-          )
+              margin: const EdgeInsets.only(right: 10),
+              child: socket.serverStatus == ServerStatus.online
+                  ? Icon(Icons.check_circle, color: Colors.blue[400])
+                  : const Icon(Icons.offline_bolt, color: Colors.red))
         ],
       ),
       body: SmartRefresher(
