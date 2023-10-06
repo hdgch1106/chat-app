@@ -16,4 +16,4 @@ Aplicación móvil de chat que consume el api creado en el backend del resposito
 
 
 ## Algunas capturas de pantalla de la aplicación
-![App](https://github.com/hdgch1106/cinema_app/blob/main/assets/captura.png)
+![App](https://github.com/hdgch1106/chat-app/blob/main/assets/captura.png)
