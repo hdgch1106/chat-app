@@ -1,16 +1,19 @@
-# chat_app
+# Aplicación Móvil Chat con Flutter
+Aplicación móvil de chat que consume el api creado en el backend del respositorio "flutter-chat-backend" utilizando material 3
 
-A new Flutter project.
+## Funciones
+- Login y registro de usuarios
+- Mensajes privados por usuarios
+- Historial de mensajes
+## Tecnologías
+- Flutter
+- Provider
+- Sockets
 
-## Getting Started
+## Instrucciones para ejecutar la aplicación
 
-This project is a starting point for a Flutter application.
+1. Cambiar las variables de entorno de lib/config/const/environment.dart
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Algunas capturas de pantalla de la aplicación
+![App](https://github.com/hdgch1106/cinema_app/blob/main/assets/captura.png)
