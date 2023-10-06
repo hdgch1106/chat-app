@@ -1,5 +1,6 @@
 import 'package:chat_app/config/routes/routes.dart';
 import 'package:chat_app/presentation/providers/auth_provider.dart';
+import 'package:chat_app/presentation/providers/chat_provider.dart';
 import 'package:chat_app/presentation/providers/login_form_provider.dart';
 import 'package:chat_app/presentation/providers/register_form_provider.dart';
 import 'package:chat_app/presentation/providers/socket_provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LoginFormProvider()),
         ChangeNotifierProvider(create: (context) => RegisterFormProvider()),
         ChangeNotifierProvider(create: (context) => SocketProvider()),
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
